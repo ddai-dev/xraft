@@ -11,10 +11,12 @@ public class CandidateNodeRole extends AbstractNodeRole {
     private final int votesCount;
     private final ElectionTimeout electionTimeout;
 
+    // 票数为1, 自己投递自己, 节点发起选举并变成 Candidate 角色时调用
     public CandidateNodeRole(int term, ElectionTimeout electionTimeout) {
         this(term, 1, electionTimeout);
     }
 
+    // 指定票数, 收到其它节点的投票时使用
     public CandidateNodeRole(int term, int votesCount, ElectionTimeout electionTimeout) {
         super(RoleName.CANDIDATE, term);
         this.votesCount = votesCount;

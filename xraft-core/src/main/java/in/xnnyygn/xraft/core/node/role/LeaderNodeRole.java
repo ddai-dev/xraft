@@ -5,6 +5,9 @@ import in.xnnyygn.xraft.core.schedule.LogReplicationTask;
 
 import javax.annotation.concurrent.Immutable;
 
+/**
+ * 没有选举超时, 但是需要定时给 Follower 节点发送心跳, 所以有一个日志复制定时器
+ */
 @Immutable
 public class LeaderNodeRole extends AbstractNodeRole {
 

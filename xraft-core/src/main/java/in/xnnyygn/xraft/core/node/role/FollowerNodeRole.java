@@ -9,9 +9,9 @@ import java.util.Objects;
 @Immutable
 public class FollowerNodeRole extends AbstractNodeRole {
 
-    private final NodeId votedFor;
-    private final NodeId leaderId;
-    private final ElectionTimeout electionTimeout;
+    private final NodeId votedFor; // 投票过的节点, 有可能为空
+    private final NodeId leaderId; // 当前 leader 节点 ID, 有可能为空
+    private final ElectionTimeout electionTimeout; // 选举超时
 
     public FollowerNodeRole(int term, NodeId votedFor, NodeId leaderId, ElectionTimeout electionTimeout) {
         super(RoleName.FOLLOWER, term);
@@ -40,6 +40,7 @@ public class FollowerNodeRole extends AbstractNodeRole {
 
     @Override
     public RoleState getState() {
+        // 角色对应的类字段是不可变的(Follower 选举超时或者接收到来自 Leader 节点服务器的 heartbeat , 必须创建一个新角色, 并发)
         DefaultRoleState state = new DefaultRoleState(RoleName.FOLLOWER, term);
         state.setVotedFor(votedFor);
         state.setLeaderId(leaderId);
