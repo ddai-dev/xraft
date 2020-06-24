@@ -9,7 +9,7 @@ import javax.annotation.Nonnull;
 public interface Scheduler {
 
     /**
-     * Schedule log replication task.
+     * Schedule log replication task. 创建日志复制定时任务
      *
      * @param task task
      * @return log replication task
@@ -18,7 +18,7 @@ public interface Scheduler {
     LogReplicationTask scheduleLogReplicationTask(@Nonnull Runnable task);
 
     /**
-     * Schedule election timeout.
+     * Schedule election timeout. 创建选举超时器
      *
      * @param task task
      * @return election timeout
@@ -27,7 +27,7 @@ public interface Scheduler {
     ElectionTimeout scheduleElectionTimeout(@Nonnull Runnable task);
 
     /**
-     * Stop scheduler.
+     * Stop scheduler. 关闭定时器
      *
      * @throws InterruptedException if interrupted
      */

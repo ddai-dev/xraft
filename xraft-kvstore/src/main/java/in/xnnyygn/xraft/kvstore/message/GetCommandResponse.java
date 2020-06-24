@@ -1,8 +1,13 @@
 package in.xnnyygn.xraft.kvstore.message;
 
+/**
+ * 返回关键字对一个的值
+ */
 public class GetCommandResponse {
 
+    // 方便区分 null 和没有找到数据的情况
     private final boolean found;
+    // kV 服务不知道实际存储的是数字、字符串还是复杂类型, 所以用更一般化的二进制数组来表示
     private final byte[] value;
 
     public GetCommandResponse(byte[] value) {

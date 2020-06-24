@@ -23,7 +23,8 @@ public interface Log {
     int ALL_ENTRIES = -1;
 
     /**
-     * Get meta of last entry.
+     * Get meta of last entry. 获取最后一条日志的元信息
+     * 场景: 选举开始时、发送消息时 (RequestVoteRpc)
      *
      * @return entry meta
      */
@@ -31,7 +32,8 @@ public interface Log {
     EntryMeta getLastEntryMeta();
 
     /**
-     * Create append entries rpc from log.
+     * Create append entries rpc from log. 创建 AppendEntries 消息
+     * 场景: Leader 向 Follower 发送日志复制消息时
      *
      * @param term       current term
      * @param selfId     self node id
@@ -61,14 +63,14 @@ public interface Log {
     GroupConfigEntry getLastUncommittedGroupConfigEntry();
 
     /**
-     * Get next log index.
+     * Get next log index. 获取下一条日志的索引
      *
      * @return next log index
      */
     int getNextIndex();
 
     /**
-     * Get commit index.
+     * Get commit index. 获取当前的 commitIndex
      *
      * @return commit index
      */
@@ -76,6 +78,7 @@ public interface Log {
 
     /**
      * Test if last log self is new than last log of leader.
+     * 判断对象的 lastLogIndex 和 lastLogTerm 是否比自己新
      *
      * @param lastLogIndex last log index
      * @param lastLogTerm  last log term
@@ -84,7 +87,7 @@ public interface Log {
     boolean isNewerThan(int lastLogIndex, int lastLogTerm);
 
     /**
-     * Append a NO-OP log entry.
+     * Append a NO-OP log entry.  增加一个 NO-OP 日志
      *
      * @param term current term
      * @return no-op entry
@@ -92,7 +95,7 @@ public interface Log {
     NoOpEntry appendEntry(int term);
 
     /**
-     * Append a general log entry.
+     * Append a general log entry. 增加一条普通日志
      *
      * @param term    current term
      * @param command command in bytes
@@ -121,7 +124,7 @@ public interface Log {
     RemoveNodeEntry appendEntryForRemoveNode(int term, Set<NodeEndpoint> nodeEndpoints, NodeId nodeToRemove);
 
     /**
-     * Append entries to log.
+     * Append entries to log. 追加来自 Leader 的日志条目
      *
      * @param prevLogIndex expected index of previous log entry
      * @param prevLogTerm  expected term of previous log entry
@@ -131,7 +134,7 @@ public interface Log {
     boolean appendEntriesFromLeader(int prevLogIndex, int prevLogTerm, List<Entry> entries);
 
     /**
-     * Advance commit index.
+     * Advance commit index. 推进 commitIndex
      *
      * <p>
      * The log entry with new commit index must be the same term as the one in parameter,
@@ -174,7 +177,7 @@ public interface Log {
     void setStateMachine(StateMachine stateMachine);
 
     /**
-     * Close log files.
+     * Close log files. 安全关闭日志组件.
      */
     void close();
 

@@ -5,8 +5,8 @@ import java.io.Serializable;
 public class AppendEntriesResult implements Serializable {
 
     private final String rpcMessageId;
-    private final int term;
-    private final boolean success;
+    private final int term; // currentTerm, for leader to update itself
+    private final boolean success; // true if follower contained entry matching prevLogIndex and prevLogTerm
 
     public AppendEntriesResult(String rpcMessageId, int term, boolean success) {
         this.rpcMessageId = rpcMessageId;

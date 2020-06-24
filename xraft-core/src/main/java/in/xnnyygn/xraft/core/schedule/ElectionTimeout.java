@@ -24,12 +24,15 @@ public class ElectionTimeout {
 
     @Override
     public String toString() {
+        // 选举超时已取消
         if (this.scheduledFuture.isCancelled()) {
             return "ElectionTimeout(state=cancelled)";
         }
+        // 选举超时已执行
         if (this.scheduledFuture.isDone()) {
             return "ElectionTimeout(state=done)";
         }
+        // 选举超时未执行, 在多少毫秒后执行
         return "ElectionTimeout{delay=" + scheduledFuture.getDelay(TimeUnit.MILLISECONDS) + "ms}";
     }
 

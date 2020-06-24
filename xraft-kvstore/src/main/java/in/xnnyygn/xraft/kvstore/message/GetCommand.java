@@ -1,5 +1,8 @@
 package in.xnnyygn.xraft.kvstore.message;
 
+/**
+ * get 请求, 传入关键字 key
+ */
 public class GetCommand  {
 
     private final String key;

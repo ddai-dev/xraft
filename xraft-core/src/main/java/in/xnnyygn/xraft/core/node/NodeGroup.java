@@ -16,8 +16,8 @@ import java.util.stream.Collectors;
 class NodeGroup {
 
     private static final Logger logger = LoggerFactory.getLogger(NodeGroup.class);
-    private final NodeId selfId;
-    private Map<NodeId, GroupMember> memberMap;
+    private final NodeId selfId; // 当前节点 ID
+    private Map<NodeId, GroupMember> memberMap; // 成员表
 
     /**
      * Create group with single member(standalone).
@@ -191,6 +191,7 @@ class NodeGroup {
     }
 
     /**
+     * 列出日志复制的对象节点, 即除自己以外的所有节点 (遍历节点, 主要在日志复制的时候使用)
      * List replication target.
      * <p>Self is not replication target.</p>
      *
@@ -244,7 +245,7 @@ class NodeGroup {
     }
 
     /**
-     * List endpoint of major members except self.
+     * List endpoint of major members except self. 返回除了当前节点之外的其他节点
      *
      * @return endpoints except self
      */

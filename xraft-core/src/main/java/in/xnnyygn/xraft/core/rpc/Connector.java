@@ -8,12 +8,14 @@ import javax.annotation.Nonnull;
 import java.util.Collection;
 
 /**
+ * sendRequestVote 是群发
+ * sendAppendEntries 是单发(必须根据每个节点的 复制进度 单独设置 AppendEntries 消息
  * Connector.
  */
 public interface Connector {
 
     /**
-     * Initialize connector.
+     * Initialize connector. 初始化
      * <p>
      * SHOULD NOT call more than one.
      * </p>
@@ -21,7 +23,7 @@ public interface Connector {
     void initialize();
 
     /**
-     * Send request vote rpc.
+     * Send request vote rpc. 发送 RequestVote 消息给多个节点
      * <p>
      * Remember to exclude self node before sending.
      * </p>
@@ -35,7 +37,7 @@ public interface Connector {
     void sendRequestVote(@Nonnull RequestVoteRpc rpc, @Nonnull Collection<NodeEndpoint> destinationEndpoints);
 
     /**
-     * Reply request vote result.
+     * Reply request vote result. 回复 RequestVote 结果给单个节点
      *
      * @param result     result
      * @param rpcMessage rpc message
@@ -43,7 +45,7 @@ public interface Connector {
     void replyRequestVote(@Nonnull RequestVoteResult result, @Nonnull RequestVoteRpcMessage rpcMessage);
 
     /**
-     * Send append entries rpc.
+     * Send append entries rpc. 发送 AppendEntries 消息给单个节点
      *
      * @param rpc                 rpc
      * @param destinationEndpoint destination endpoint
@@ -51,7 +53,7 @@ public interface Connector {
     void sendAppendEntries(@Nonnull AppendEntriesRpc rpc, @Nonnull NodeEndpoint destinationEndpoint);
 
     /**
-     * Reply append entries result.
+     * Reply append entries result. 回 AppendEntries 消息给单个节点
      *
      * @param result result
      * @param rpcMessage rpc message

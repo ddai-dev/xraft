@@ -1,7 +1,7 @@
 package in.xnnyygn.xraft.core.node;
 
 /**
- * Replicating state.
+ * Replicating state. 复制进度
  */
 class ReplicatingState {
 

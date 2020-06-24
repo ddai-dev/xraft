@@ -10,12 +10,12 @@ import java.util.List;
 public class AppendEntriesRpc implements Serializable {
 
     private String messageId;
-    private int term;
-    private NodeId leaderId;
-    private int prevLogIndex = 0;
-    private int prevLogTerm;
-    private List<Entry> entries = Collections.emptyList();
-    private int leaderCommit;
+    private int term; // leader's term
+    private NodeId leaderId; // leader 节点 ID, so follower can redirect clients
+    private int prevLogIndex = 0; // 前一条日志索引, index of log entry immediately preceding new ones
+    private int prevLogTerm; // 前一条日志 term, term of prevLogIndex entry
+    private List<Entry> entries = Collections.emptyList(); // 复制的日志条目, log entries to store( empty for heartbeat, may send more than one for efficiency)
+    private int leaderCommit; // leader's commitIndex
 
     public String getMessageId() {
         return messageId;

@@ -15,6 +15,7 @@ public class SingleThreadTaskExecutor extends AbstractTaskExecutor {
         this(Executors.defaultThreadFactory());
     }
 
+    // 指定名称
     public SingleThreadTaskExecutor(String name) {
         this(r -> new Thread(r, name));
     }

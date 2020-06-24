@@ -17,11 +17,11 @@ import java.util.concurrent.TimeUnit;
 public class DefaultScheduler implements Scheduler {
 
     private static final Logger logger = LoggerFactory.getLogger(DefaultScheduler.class);
-    private final int minElectionTimeout;
-    private final int maxElectionTimeout;
-    private final int logReplicationDelay;
-    private final int logReplicationInterval;
-    private final Random electionTimeoutRandom;
+    private final int minElectionTimeout; // 最小选举超时时间
+    private final int maxElectionTimeout; // 最大选举超时时间
+    private final int logReplicationDelay; // 初次日志复制延迟时间
+    private final int logReplicationInterval; // 日志复制间隔
+    private final Random electionTimeoutRandom; // 随机数生成器
     private final ScheduledExecutorService scheduledExecutorService;
 
     public DefaultScheduler(NodeConfig config) {

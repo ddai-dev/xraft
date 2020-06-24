@@ -8,7 +8,7 @@ import javax.annotation.concurrent.Immutable;
 import java.util.Objects;
 
 /**
- * Node endpoint.
+ * Node endpoint. 服务器 IP + port
  */
 @Immutable
 public class NodeEndpoint {

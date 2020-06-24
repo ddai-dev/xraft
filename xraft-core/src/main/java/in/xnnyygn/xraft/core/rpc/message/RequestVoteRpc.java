@@ -6,10 +6,10 @@ import java.io.Serializable;
 
 public class RequestVoteRpc implements Serializable {
 
-    private int term;
-    private NodeId candidateId;
-    private int lastLogIndex = 0;
-    private int lastLogTerm = 0;
+    private int term; // 选举 term
+    private NodeId candidateId; // 候选者 ID, 一般都是发送者自己
+    private int lastLogIndex = 0; // 候选者最后一条日志索引
+    private int lastLogTerm = 0; // 候选者最后一条日志的 term
 
     public int getTerm() {
         return term;

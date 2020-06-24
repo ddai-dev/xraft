@@ -8,6 +8,7 @@ import java.util.UUID;
 
 public class SetCommand {
 
+    // 请求 ID 在之后的请求处理流程中是一个很重要的字段, 用于关联请求、SET 命令和客户端
     private final String requestId;
     private final String key;
     private final byte[] value;

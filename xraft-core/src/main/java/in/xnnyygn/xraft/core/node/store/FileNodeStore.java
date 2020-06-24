@@ -22,6 +22,7 @@ public class FileNodeStore implements NodeStore {
     public FileNodeStore(File file) {
         try {
             if (!file.exists()) {
+                // 通过工具类来创建文件
                 Files.touch(file);
             }
             seekableFile = new RandomAccessFileAdapter(file);
@@ -40,8 +41,14 @@ public class FileNodeStore implements NodeStore {
         }
     }
 
+    /**
+     * 4 byte, currentTerm
+     * 4 byte, votedFor (节点 ID) 长度
+     * 变长, votedFor 内容
+     * @throws IOException
+     */
     private void initializeOrLoad() throws IOException {
-        if (seekableFile.size() == 0) {
+        if (seekableFile.size() == 0) { // 不存在, 新建
             // (term, 4) + (votedFor length, 4) = 8
             seekableFile.truncate(8L);
             seekableFile.seek(0);

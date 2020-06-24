@@ -12,12 +12,12 @@ import in.xnnyygn.xraft.core.node.NodeBuilder;
 public class NodeConfig {
 
     /**
-     * Minimum election timeout
+     * Minimum election timeout 最小选举时间
      */
     private int minElectionTimeout = 3000;
 
     /**
-     * Maximum election timeout
+     * Maximum election timeout 最大选举时间
      */
     private int maxElectionTimeout = 4000;
 
@@ -27,7 +27,7 @@ public class NodeConfig {
     private int logReplicationDelay = 0;
 
     /**
-     * Interval for log replication task.
+     * Interval for log replication task. 日志复制间隔
      * More specifically, interval for heartbeat rpc.
      * Append entries rpc may be sent less than this interval.
      * e.g after receiving append entries result from followers.

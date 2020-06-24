@@ -32,12 +32,12 @@ public class NodeBuilder {
     /**
      * Group.
      */
-    private final NodeGroup group;
+    private final NodeGroup group; // 集群成员
 
     /**
      * Self id.
      */
-    private final NodeId selfId;
+    private final NodeId selfId; // 节点 ID
 
     /**
      * Event bus, INTERNAL.
@@ -71,17 +71,17 @@ public class NodeBuilder {
     /**
      * Scheduler, INTERNAL.
      */
-    private Scheduler scheduler = null;
+    private Scheduler scheduler = null; // 定时器
 
     /**
      * Connector, component to communicate between nodes, INTERNAL.
      */
-    private Connector connector = null;
+    private Connector connector = null; // RPC 连接器
 
     /**
      * Task executor for node, INTERNAL.
      */
-    private TaskExecutor taskExecutor = null;
+    private TaskExecutor taskExecutor = null; // 主线程执行器
 
     /**
      * Task executor for group config change task, INTERNAL.
@@ -95,11 +95,13 @@ public class NodeBuilder {
     private NioEventLoopGroup workerNioEventLoopGroup = null;
 
     // TODO add doc
+    // 单节点构造函数
     public NodeBuilder(@Nonnull NodeEndpoint endpoint) {
         this(Collections.singletonList(endpoint), endpoint.getId());
     }
 
     // TODO add doc
+    // 多节点构造函数
     public NodeBuilder(@Nonnull Collection<NodeEndpoint> endpoints, @Nonnull NodeId selfId) {
         Preconditions.checkNotNull(endpoints);
         Preconditions.checkNotNull(selfId);
@@ -148,6 +150,7 @@ public class NodeBuilder {
 
     /**
      * Set connector.
+     * 设置通信组件
      *
      * @param connector connector
      * @return this
@@ -173,6 +176,7 @@ public class NodeBuilder {
 
     /**
      * Set scheduler.
+     * 设置定时器
      *
      * @param scheduler scheduler
      * @return this
@@ -185,6 +189,7 @@ public class NodeBuilder {
 
     /**
      * Set task executor.
+     * 设置任务执行器
      *
      * @param taskExecutor task executor
      * @return this

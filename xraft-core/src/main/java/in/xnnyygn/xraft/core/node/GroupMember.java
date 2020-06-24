@@ -12,10 +12,12 @@ class GroupMember {
     private boolean major;
     private boolean removing = false;
 
+    // 无日志复制状态的构造函数
     GroupMember(NodeEndpoint endpoint) {
         this(endpoint, null, true);
     }
 
+    // 带日志复制状态的构造函数
     GroupMember(NodeEndpoint endpoint, ReplicatingState replicatingState, boolean major) {
         this.endpoint = endpoint;
         this.replicatingState = replicatingState;
@@ -42,6 +44,10 @@ class GroupMember {
         return replicatingState != null;
     }
 
+    /**
+     * 复制进度默认情况下为 null, 只有当节点成为 Leader 节点后, 才会重置为实际的复制进度
+     * @return
+     */
     private ReplicatingState ensureReplicatingState() {
         if (replicatingState == null) {
             throw new IllegalStateException("replication state not set");

@@ -35,6 +35,13 @@ import java.util.concurrent.TimeoutException;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.Collectors;
 
+/**
+ * 测试专用定时器组件 NullScheduler
+ * 测试专用 RPC 组件 MockConnector
+ * 暴露 role 的状态数据
+ * 快速构造 NodeImpl 的 NodeBuilder
+ *
+ */
 public class NodeImplTest {
 
     private static class WaitableConnector extends ConnectorAdapter {
@@ -97,6 +104,9 @@ public class NodeImplTest {
         cachedThreadTaskExecutor = new ListeningTaskExecutor(Executors.newCachedThreadPool(r -> new Thread(r, "cached-thread-" + cachedThreadId.incrementAndGet())));
     }
 
+    /**
+     * 系统启动后角色为 Follower, term 为 0
+     */
     @Test
     public void testStartFresh() {
         NodeImpl node = (NodeImpl) newNodeBuilder(NodeId.of("A"), new NodeEndpoint("A", "localhost", 2333))
@@ -182,6 +192,7 @@ public class NodeImplTest {
         node.electionTimeout(); // do nothing
     }
 
+    // 选举超时
     @Test
     public void testElectionTimeoutWhenFollower() {
         NodeImpl node = (NodeImpl) newNodeBuilder(
@@ -193,11 +204,13 @@ public class NodeImplTest {
         node.start();
         node.electionTimeout();
 
+        // 选举开始后, 初始 term 为 1
         RoleState state = node.getRoleState();
         Assert.assertEquals(RoleName.CANDIDATE, state.getRoleName());
         Assert.assertEquals(1, state.getTerm());
         Assert.assertEquals(1, state.getVotesCount());
 
+        // 当前节点向其他节点发送 RequestVote 消息
         MockConnector mockConnector = (MockConnector) node.getContext().connector();
         RequestVoteRpc rpc = (RequestVoteRpc) mockConnector.getRpc();
         Assert.assertEquals(1, rpc.getTerm());
@@ -760,6 +773,7 @@ public class NodeImplTest {
         Assert.assertFalse(result.isVoteGranted());
     }
 
+    // C 发送 RequestVote 消息给当前节点 A 时的情况
     @Test
     public void testOnReceiveRequestVoteRpcFollower() {
         NodeImpl node = (NodeImpl) newNodeBuilder(

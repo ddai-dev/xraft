@@ -4,8 +4,8 @@ import java.io.Serializable;
 
 public class RequestVoteResult implements Serializable {
 
-    private int term;
-    private boolean voteGranted;
+    private int term; // currentTerm for candidate to update its self
+    private boolean voteGranted; // true means candidate received vote
 
     public RequestVoteResult(int term, boolean voteGranted) {
         this.term = term;
